@@ -1,63 +1,37 @@
-```zsh
-# Clone the initial repository
-git clone git@github.com:eerwitt/command-line-mystery.git
-cd command-line-mystery
+1. cd command-line-mystery
+    # changed to command line mystery directory
 
-# Check the status to see if anything is already marked as new (shouldn't be)
-git status
+2. grep "CLUE" mystery/crimescene
+    # filtered out the related clues to the crime
 
-# Edit my solution file
-subl solution.md
+3. grep Annabel mystery/crimescene
+    # found all addresses where "Annabel"s lived at
 
-# Commit initial solution
-git add solution.md
-git commit -a
+4. head -n 40 mystery/streets/Hart_Place | tail -n 1
 
-# Start reading the instructions
-less instructions
+5. cat mystery/interviews/interview-47246024
+    # not our witness
 
-# Check for clues in the mystery
-cd mystery
-grep CLUE ./crimescene
+6. head -n 176 mystery/streets/Haley_Street | tail -n 1
 
-# Search for person with the Latte
-grep Annabel ./people
+7. cat mystery/interviews/interview-871877
+    # not our witness
 
-# Knock on her door
-less streets/Mattapan_Street
-# Goto line in file using less: http://stackoverflow.com/questions/8586648/going-to-a-specific-line-number-using-less-in-unix
-# in less type 173g
-# Try different interviews
-less interviews/interview-47246024
+8. head -n 179 mystery/streets/Buckingham_Place | tail -n 1
 
-less interviews/interview-699607
+9. cat mystery/interviews/interview-699607
+    # Ms Church saw a car leaving the scene, Blue Honda, License plate starting with "L337" and ending with "9"
 
-# Checking for vehicle
-less vehicles
-# Search in less for vehicles starting with L337 and ending in 9
-# in less /L337..9
-# Check which are over 6'
-# Katie Park
-# Mike Bostock
-# John Keefe
-# Erika Owens
-# Matt Waite
-# Brian Boyer
-# Al Shaw
-# Miranda Mulligan
-# Joe Germuska
-# Jeremy Bowers
-# Jacqui Maher
+10. grep -A 5 "L337" mystery/vehicles
+    # pulled up all vehicles matching description of license plate and checked to see who matched the description provided by the barista and Ms. Church
 
-# Check which is male/female and get their names
-egrep '((Katie Park)|(Mike Bostock)|(John Keefe)|(Erika Owens)|(Matt Waite)|(Brian Boyer)|(Al Shaw)|(Miranda Mulligan)|(Joe Germuska)|(Jeremy Bowers)|(Jacqui Maher))' ./people | grep '\tM\t' | cut -f1
+11. cd mystery/memberships
+    # changed into memberships database
 
-# Limit down by membership
-egrep -R '((Joe Germuska)|(Brian Boyer)|(Mike Bostock)|(Jeremy Bowers)|(John Keefe)|(Al Shaw)|(Matt Waite))' ./memberships
+12. cat AAA Delta_SkyMiles Terminal_City_Library Museum_of_Bash_History | grep "Joe Germuska"
+    # checked memberships of Joe Germuska vs the contents of the wallet. He came back positive for two of the four found.
 
-# (Jeremy Bowers)|(Brian Boyer)|(Mike Bostock)|(Matt Waite)
-# Not MB, wrong car color
-# Not MW, wrong car manufacturer
-# Not BB, wrong car manufacturer
-# JB, it is JB
-```
+13. cat AAA Delta_SkyMiles Terminal_City_Library Museum_of_Bash_History | grep -c  "Jeremy Bowers"
+    # checked the number of memberships that matched the content of the wallet. Came back a 100% match
+
+14. Jeremy Bowers is the shooter!!!
